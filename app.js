@@ -50,8 +50,19 @@ if (IS_RENDER === "false") {
 }
 
 // API Endpoint
-app.use(cors());
+// app.use(cors());
+// app.get("/api/weather", (req, res) => {
+//     res.json(sensorData);
+// });
+app.use(express.json()); // Ensure JSON parsing
+app.use(express.static("public")); // Serve frontend files if needed
+
+app.get("/", (req, res) => {
+    res.send("Weather API is running!");
+});
+
 app.get("/api/weather", (req, res) => {
+    console.log("API Request Received"); // Debugging
     res.json(sensorData);
 });
 
