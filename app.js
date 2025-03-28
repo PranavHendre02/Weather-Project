@@ -4,7 +4,7 @@ const cors = require("cors");
 
 const app = express();
 const PORT = process.env.PORT || 3000;
-const IS_RENDER = process.env.RENDER || false; // Check if running on Render
+const IS_RENDER = process.env.RENDER === "true"; // Ensure it's a boolean
 
 let sensorData = { temperature: "--", humidity: "--", heatIndex: "--" };
 
@@ -34,6 +34,15 @@ if (!IS_RENDER) {
     port.on("error", (err) => {
         console.error("Serial Port Error:", err.message);
     });
+} else {
+    // Mock data for Render since Serial Port is unavailable
+    setInterval(() => {
+        sensorData = {
+            temperature: (Math.random() * 10 + 20).toFixed(2),
+            humidity: (Math.random() * 20 + 50).toFixed(2),
+            heatIndex: (Math.random() * 5 + 25).toFixed(2),
+        };
+    }, 5000); // Update mock data every 5 seconds
 }
 
 // API Endpoint to Get Sensor Data
