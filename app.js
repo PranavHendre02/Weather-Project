@@ -8,6 +8,10 @@ const IS_RENDER = process.env.RENDER || "false"; // Ensure it's a string compari
 
 let sensorData = { temperature: "--", humidity: "--", heatIndex: "--" };
 
+app.use(cors()); // Enable CORS for all origins
+app.use(express.json()); // Ensure JSON parsing
+app.use(express.static("public")); // Serve frontend files if needed
+
 if (IS_RENDER === "false") {
     // Running locally, use SerialPort
     const { SerialPort } = require("serialport");
@@ -46,17 +50,11 @@ if (IS_RENDER === "false") {
             humidity: (40 + Math.random() * 40).toFixed(2), // Random humidity (40-80%)
             heatIndex: (22 + Math.random() * 10).toFixed(2), // Random heat index (22-32°C)
         };
+        console.log("Updated Mock Sensor Data:", sensorData);
     }, 5000); // Update mock data every 5 seconds
 }
 
-// API Endpoint
-// app.use(cors());
-// app.get("/api/weather", (req, res) => {
-//     res.json(sensorData);
-// });
-app.use(express.json()); // Ensure JSON parsing
-app.use(express.static("public")); // Serve frontend files if needed
-
+// API Endpoints
 app.get("/", (req, res) => {
     res.send("Weather API is running!");
 });
@@ -66,9 +64,6 @@ app.get("/api/weather", (req, res) => {
     res.json(sensorData);
 });
 
-// app.listen(PORT, () => {
-//     console.log(`API running at http://localhost:${PORT}/api/weather`);
-// });
 const server = app.listen(PORT, () => {
     console.log(`API running at http://localhost:${PORT}/api/weather`);
 });
@@ -81,4 +76,3 @@ const io = new Server(server, {
 setInterval(() => {
     io.emit("weatherUpdate", sensorData); // Send updated data every 5 sec
 }, 5000);
-
