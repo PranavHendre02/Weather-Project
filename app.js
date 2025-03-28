@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 10000;
 const IS_RENDER = process.env.RENDER || "false"; // Ensure it's a string comparison
 
-let sensorData = { temperature: "--", humidity: "--", heatIndex: "--" };
+let sensorData = null; // Start with null to avoid "--" issues
 
 if (IS_RENDER === "false") {
     // Running locally, use SerialPort
@@ -25,9 +25,9 @@ if (IS_RENDER === "false") {
             const values = data.trim().split(",");
             if (values.length === 3) {
                 sensorData = {
-                    temperature: parseFloat(values[0]),
-                    humidity: parseFloat(values[1]),
-                    heatIndex: parseFloat(values[2]),
+                    temperature: parseFloat(values[0]) || (sensorData ? sensorData.temperature : "--"),
+                    humidity: parseFloat(values[1]) || (sensorData ? sensorData.humidity : "--"),
+                    heatIndex: parseFloat(values[2]) || (sensorData ? sensorData.heatIndex : "--"),
                 };
             }
         });
@@ -51,8 +51,13 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/weather", (req, res) => {
-    console.log("API Request Received");
-    res.json(sensorData);
+    console.log("API Request Received. Sending:", sensorData);
+    
+    if (sensorData) {
+        res.json(sensorData);
+    } else {
+        res.status(503).json({ message: "Sensor data not ready. Try again in a few seconds." });
+    }
 });
 
 // Start Server
@@ -67,5 +72,7 @@ const io = new Server(server, {
 });
 
 setInterval(() => {
-    io.emit("weatherUpdate", sensorData); // Send real sensor data every 5 sec
+    if (sensorData) {
+        io.emit("weatherUpdate", sensorData); // Send real sensor data every 5 sec
+    }
 }, 5000);
