@@ -55,6 +55,19 @@ app.get("/api/weather", (req, res) => {
     res.json(sensorData);
 });
 
-app.listen(PORT, () => {
+// app.listen(PORT, () => {
+//     console.log(`API running at http://localhost:${PORT}/api/weather`);
+// });
+const server = app.listen(PORT, () => {
     console.log(`API running at http://localhost:${PORT}/api/weather`);
 });
+
+const { Server } = require("socket.io");
+const io = new Server(server, {
+    cors: { origin: "*" }
+});
+
+setInterval(() => {
+    io.emit("weatherUpdate", sensorData); // Send updated data every 5 sec
+}, 5000);
+

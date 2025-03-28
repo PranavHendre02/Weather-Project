@@ -1,10 +1,18 @@
-const socket = io("https://weather-project-nvzh.onrender.com"); // Your Render URL
+function fetchWeatherData() {
+    fetch("https://weather-project-nvzh.onrender.com/api/weather") // Ensure this matches Render's API
+        .then(response => response.json())
+        .then(data => {
+            console.log("Live Weather Data:", data);
+            
+            document.getElementById("temp").value = data.temperature;
+            document.getElementById("humid").value = data.humidity;
+            document.getElementById("heat").value = data.heatIndex;
+        })
+        .catch(error => console.error("Error fetching data:", error));
+}
 
-// Listen for live weather updates
-socket.on("weatherUpdate", (data) => {
-    console.log("Live Weather Data:", data);
-    
-    document.getElementById("temperature").textContent = `Temperature: ${data.temperature}°C`;
-    document.getElementById("humidity").textContent = `Humidity: ${data.humidity}%`;
-    document.getElementById("heatIndex").textContent = `Heat Index: ${data.heatIndex}°C`;
-});
+// Fetch data every 5 seconds
+setInterval(fetchWeatherData, 5000);
+
+// Fetch data immediately on page load
+fetchWeatherData();
