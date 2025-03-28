@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather Monitoring System</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="icon">
+                <i class="fa-solid fa-cloud-sun-rain"></i>
+            </div>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#home">Graphs</a></li>
+                <li><a href="#home">Contact</a></li>
+                <li><a href="#home">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <div class="container">
+             <div class="sub_container">
+                <div class="right">
+                    <div class="location box">
+                        <label for="loc">Location</label>
+                        <input type="text" id="loc" name="loc">
+                    </div>
+                    <div class="lan box">
+                        <label for="lan">Longitude&Latitude</label>
+                        <input type="number" id="lan" name="lan">
+                    </div>
+                </div>
+                <div class="left">
+                    <div class="temp box">
+                        🌡<label for="temp">Temperature</label>
+                        <input type="number" id="temp" name="temp">
+                    </div>
+                    <div class="humid box">
+                        💧<label for="humid">Humidity</label>
+                        <input type="number" id="humid" name="humid">
+                    </div>
+                    <div class="heat box">
+                        🔥<label for="heat">Heat Index</label>
+                        <input type="number" id="heat" name="heat">
+                    </div>
+                </div>
+             </div>
+            </div>
+            <div class="graph">
+                <div class="g_container">
+
+                </div>
+            </div>
+            <div class="instruction">
+                <label for="instruct">Instruction</label>
+                <input type="text" id="instruct">
+            </div>
+        </section>
+        <footer>
+            <p>Copyright@2025</p>
+        </footer>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
