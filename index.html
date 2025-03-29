@@ -13,7 +13,9 @@
     <header>
         <nav>
             <div class="icon">
-                <i class="fa-solid fa-cloud-sun-rain"></i>
+                <img width="96" height="96"
+                    src="https://img.icons8.com/external-goofy-color-kerismaker/96/external-Cloud-Sun-weather-goofy-color-kerismaker.png"
+                    alt="external-Cloud-Sun-weather-goofy-color-kerismaker" />
             </div>
             <ul>
                 <li><a href="#home">Home</a></li>
@@ -26,36 +28,96 @@
     <main>
         <section>
             <div class="container">
-             <div class="sub_container">
-                <div class="right">
-                    <div class="location box">
-                        <label for="loc">Location</label>
-                        <input type="text" id="loc" name="loc">
+                <div class="sub_container">
+                    <div class="box">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Location</h3>
+                                <img width="48" height="48" src="https://img.icons8.com/color/48/marker--v1.png"
+                                    alt="marker--v1" />
+                            </div>
+                            <div class="flip-card-back">
+                                <p id="location-value">Pune, India</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="lan box">
-                        <label for="lan">Longitude&Latitude</label>
-                        <input type="number" id="lan" name="lan">
+
+                    <div class="box">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Longitude</h3>
+                                <img width="50" height="50" src="https://img.icons8.com/ios/50/geography--v1.png"
+                                    alt="geography--v1" />
+                            </div>
+                            <div class="flip-card-back">
+                                <p id="longitude-value">--°</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Temperature</h3>
+                                <img width="48" height="48" src="https://img.icons8.com/color-glass/48/temperature.png"
+                                    alt="temperature" />
+                            </div>
+                            <div class="flip-card-back">
+                                <p id="temp-value">--°C</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Humidity</h3>
+                                <img width="40" height="40" src="https://img.icons8.com/office/40/blur.png"
+                                    alt="blur" />
+                            </div>
+                            <div class="flip-card-back">
+                                <p id="humidity-value">--%</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="box">
+                        <div class="flip-card-inner">
+                            <div class="flip-card-front">
+                                <h3>Heat Index</h3>
+                                <img width="48" height="48" src="https://img.icons8.com/color/48/fire-element--v1.png"
+                                    alt="fire-element--v1" />
+                            </div>
+                            <div class="flip-card-back">
+                                <p id="heat-index-value">--</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="left">
-                    <div class="temp box">
-                        🌡<label for="temp">Temperature</label>
-                        <input type="number" id="temp" name="temp">
-                    </div>
-                    <div class="humid box">
-                        💧<label for="humid">Humidity</label>
-                        <input type="number" id="humid" name="humid">
-                    </div>
-                    <div class="heat box">
-                        🔥<label for="heat">Heat Index</label>
-                        <input type="number" id="heat" name="heat">
-                    </div>
-                </div>
-             </div>
+
+
             </div>
             <div class="graph">
-                <div class="g_container">
-
+                <div class="g_container1">
+                    <div>
+                        <canvas id="myChart1"></canvas>
+                      </div>
+                      
+                      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                </div>
+                <div class="g_container2">
+                    <div>
+                        <canvas id="myChart2"></canvas>
+                      </div>
+                      
+                      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                </div>
+                <div class="g_container3">
+                    <div>
+                        <canvas id="myChart3"></canvas>
+                      </div>
+                      
+                      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 </div>
             </div>
             <div class="instruction">
