@@ -2,6 +2,12 @@ document.addEventListener("DOMContentLoaded", () => {
     let temp = document.querySelector("#temp-value");
     let hum = document.querySelector("#humidity-value");
     let heat = document.querySelector("#heat-index-value");
+    let itemp=document.querySelector("#itemp");
+    let ihumi=document.querySelector("#humi");
+    let iheat=document.querySelector("#heat");
+    let tempMsg = "✅ Temperature is normal.";
+    let humidityMsg = "✅ Humidity is normal.";
+    let heatMsg = "✅ Heat index is normal.";
 
     const tempctx = document.getElementById('myChart1').getContext("2d");
 
@@ -188,11 +194,41 @@ document.addEventListener("DOMContentLoaded", () => {
             temp.innerHTML = data.temperature + "°C";
             hum.innerHTML = data.humidity + "%";
             heat.innerHTML = data.heatIndex;
+        
+            // Temperature Conditions
+            if (data.temperature >= 32) {
+                tempMsg = "⚠️ High Temperature! Turning on fan simulation.";
+            } else if (data.temperature <= 31) {
+                tempMsg = "❄️ Low Temperature! Turning on heater simulation.";
+            }
+        
+            // Humidity Conditions
+            if (data.humidity >= 60) {
+                humidityMsg = "⚠️ High Humidity! Activating fan simulation.";
+            } else if (data.humidity <= 30) {
+                humidityMsg = "💧 Low Humidity! Activating fan simulation.";
+            }
+        
+            // Heat Index Conditions
+            if (data.heatIndex >= 38) {
+                heatMsg = "🔥 Extreme Heat! Cooling system activated.";
+            }
+        
+            // Updating the HTML elements
+            document.getElementById("temp-instruction").innerText = tempMsg;
+            document.getElementById("humidity-instruction").innerText = humidityMsg;
+            document.getElementById("heat-instruction").innerText = heatMsg;
+        
+            // Updating Live Sensor Values
+            itemp.textContent = data.temperature;
+            ihumi.textContent = data.humidity;
+           iheat.textContent = data.heatIndex;
+        
 
             updateChart(tempChart, time, data.temperature);
             updateChart(humChart, time, data.humidity);
             updateChart(heatChart, time, data.heatIndex);
-            updateInstructions(data.temperature, data.humidity, data.heatIndex)
+            
 
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -215,49 +251,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchWeatherData(); // Initial API call
     setInterval(fetchWeatherData, 3000);
 
-    function updateInstructions(temp, humidity, heatIndex) {
-        let tempMsg = "✅ Temperature is normal.";
-        let humidityMsg = "✅ Humidity is normal.";
-        let heatMsg = "✅ Heat index is normal.";
+      
     
-        // Temperature Conditions
-        if (temp >= 32) {
-            tempMsg = "⚠️ High Temperature! Turning on fan simulation.";
-        } else if (temp <= 31) {
-            tempMsg = "❄️ Low Temperature! Turning on heater simulation.";
-        }
-    
-        // Humidity Conditions
-        if (humidity >= 60) {
-            humidityMsg = "⚠️ High Humidity! Activating fan simulation.";
-        } else if (humidity <= 30) {
-            humidityMsg = "💧 Low Humidity! Activating fan simulation.";
-        }
-    
-        // Heat Index Conditions
-        if (heatIndex >= 38) {
-            heatMsg = "🔥 Extreme Heat! Cooling system activated.";
-        }
-    
-        // Updating the HTML elements
-        document.getElementById("temp-instruction").innerText = tempMsg;
-        document.getElementById("humidity-instruction").innerText = humidityMsg;
-        document.getElementById("heat-instruction").innerText = heatMsg;
-    
-        // Updating Live Sensor Values
-        document.getElementById("temp-value").innerText = temp;
-        document.getElementById("humidity-value").innerText = humidity;
-        document.getElementById("heat-value").innerText = heatIndex;
-    }
-    
-    // // Simulating live data (Replace this with real sensor data)
-    // setInterval(() => {
-    //     const temp = Math.floor(Math.random() * 15) + 25; // Random temperature (25-40°C)
-    //     const humidity = Math.floor(Math.random() * 50) + 30; // Random humidity (30-80%)
-    //     const heatIndex = temp + 2; // Simulated heat index
-    
-    //     updateInstructions(temp, humidity, heatIndex);
-    // }, 3000); // Updates every 3 seconds
+  
     
 }
 )

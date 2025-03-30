@@ -207,6 +207,12 @@ footer {
     align-items: center;
     justify-content: center;
     flex-direction: row;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out;
+    color: white;
+}
+.sub_instruction:hover{
+    transform: scale(1.03);
 }
 
 h3 {
@@ -224,6 +230,7 @@ h3 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    color: black;
 
 }
 
@@ -232,6 +239,8 @@ h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
+    text-align: left;  
 }
 
 .right {
@@ -245,13 +254,13 @@ h3 {
 #foot{font-size: 1.3rem;
 color: white;}
 #temp-instruction {
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
 
 #humidity-instruction {
-    font-size: 2rem;
+    font-size: 1.4rem;
 }
 
 #heat-instruction {
-    font-size: 2rem;
+    font-size: 1.4rem;
 }

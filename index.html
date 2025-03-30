@@ -31,29 +31,55 @@
             <div class="instruction">
                 <div class="sub_instruction">
                  <div class="left">
-                     <div class="instructions">
+                     
                          <p>Instruction</p>
                          <p id="temp-instruction">📌 Waiting for temperature data...</p>
                          <p id="humidity-instruction">📌 Waiting for humidity data...</p>
                          <p id="heat-instruction">📌 Waiting for heat index data...</p>
-                     </div>
+                    
                  </div>
                  <div class="right">
                      <h3>Temperature🌡</h3>
                      <div class="temp  box1">
-                         <p></p>
+                         <p id="itemp"></p>
                      </div>
                      <h3>Humidity💧</h3>
                      <div class="humi box1">
-                         <p></p>
+                         <p id="humi"></p>
                      </div>
                      <h3>Heat Index🔥</h3>
                      <div class="heat box1">
-                         <p></p>
+                         <p id="heat"></p>
                      </div>
                  </div>
                 </div>
              </div>
+
+             <div class="graph" id="graph_section">
+                <div class="g_container1">
+                    <div>
+                        <canvas id="myChart1" width="1000%" height="380%"></canvas>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                </div>
+                <div class="g_container2">
+                    <div>
+                        <canvas id="myChart2" width="1000%" height="380%"></canvas>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                </div>
+                <div class="g_container3">
+                    <div>
+                        <canvas id="myChart3" width="1000%" height="380%"></canvas>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                </div>
+            </div>
+
+
             <div class="container" id="data">
                 <div class="sub_container">
                     <div class="box">
@@ -124,30 +150,6 @@
 
 
             </div>
-            <div class="graph" id="graph_section">
-                <div class="g_container1">
-                    <div>
-                        <canvas id="myChart1" width="1000%" height="380%"></canvas>
-                    </div>
-
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                </div>
-                <div class="g_container2">
-                    <div>
-                        <canvas id="myChart2" width="1000%" height="380%"></canvas>
-                    </div>
-
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                </div>
-                <div class="g_container3">
-                    <div>
-                        <canvas id="myChart3" width="1000%" height="380%"></canvas>
-                    </div>
-
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                </div>
-            </div>
-           
         </section>
         <footer>
             <p id="foot">Copyright@2025</p>
