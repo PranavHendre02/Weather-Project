@@ -18,8 +18,9 @@
                     alt="external-Cloud-Sun-weather-goofy-color-kerismaker" />
             </div>
             <ul>
-                <li><a href="#home">Home</a></li>
-                <li><a href="#home">Graphs</a></li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="#data">Data</a></li>
+                <li><a href="#graph_section">Graphs</a></li>
                 <li><a href="#home">Contact</a></li>
                 <li><a href="#home">About</a></li>
             </ul>
@@ -27,7 +28,33 @@
     </header>
     <main>
         <section>
-            <div class="container">
+            <div class="instruction">
+                <div class="sub_instruction">
+                 <div class="left">
+                     <div class="instructions">
+                         <p>Instruction</p>
+                         <p id="temp-instruction">📌 Waiting for temperature data...</p>
+                         <p id="humidity-instruction">📌 Waiting for humidity data...</p>
+                         <p id="heat-instruction">📌 Waiting for heat index data...</p>
+                     </div>
+                 </div>
+                 <div class="right">
+                     <h3>Temperature🌡</h3>
+                     <div class="temp  box1">
+                         <p></p>
+                     </div>
+                     <h3>Humidity💧</h3>
+                     <div class="humi box1">
+                         <p></p>
+                     </div>
+                     <h3>Heat Index🔥</h3>
+                     <div class="heat box1">
+                         <p></p>
+                     </div>
+                 </div>
+                </div>
+             </div>
+            <div class="container" id="data">
                 <div class="sub_container">
                     <div class="box">
                         <div class="flip-card-inner">
@@ -97,36 +124,33 @@
 
 
             </div>
-            <div class="graph">
+            <div class="graph" id="graph_section">
                 <div class="g_container1">
                     <div>
-                        <canvas id="myChart1"></canvas>
-                      </div>
-                      
-                      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="myChart1" width="1000%" height="380%"></canvas>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 </div>
                 <div class="g_container2">
                     <div>
-                        <canvas id="myChart2"></canvas>
-                      </div>
-                      
-                      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="myChart2" width="1000%" height="380%"></canvas>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 </div>
                 <div class="g_container3">
                     <div>
-                        <canvas id="myChart3"></canvas>
-                      </div>
-                      
-                      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                        <canvas id="myChart3" width="1000%" height="380%"></canvas>
+                    </div>
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                 </div>
             </div>
-            <div class="instruction">
-                <label for="instruct">Instruction</label>
-                <input type="text" id="instruct">
-            </div>
+           
         </section>
         <footer>
-            <p>Copyright@2025</p>
+            <p id="foot">Copyright@2025</p>
         </footer>
     </main>
     <script src="script.js"></script>

@@ -8,7 +8,8 @@ html,
 body {
     height: 100vh;
     width: 100%;
-    background: rgb(156, 215, 245);
+    background: rgba(156, 215, 245, 0.611);
+    background: linear-gradient(to bottom, #568fbb, #145ab6);
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -21,12 +22,13 @@ nav {
     position: fixed;
     top: 0;
     left: 0;
-    background-color: #0c4c99;
+    background-color: rgba(3, 39, 84, 0.636);
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 2rem;
     z-index: 1000;
+    backdrop-filter: blur(5px);
 }
 
 nav ul {
@@ -49,8 +51,10 @@ nav li a {
 }
 
 nav li a:hover {
-    background-color: #2ab3f3;
+    background-color: #2a92f3;
     transform: scale(1.1);
+    border-radius: 1.5rem;
+
 }
 
 h3 {
@@ -78,8 +82,13 @@ h3 {
     height: 40vh;
     border: 2px solid white;
     border-radius: 2rem;
-    background: rgba(255, 255, 255, 0.105);
+    background: rgba(51, 102, 137, 0.25);
     backdrop-filter: blur(5px);
+    transition: all 0.3s ease-in-out;
+}
+
+.sub_container:hover {
+    transform: scale(1.02);
 }
 
 .box {
@@ -118,7 +127,7 @@ h3 {
     justify-content: center;
     flex-direction: column;
     border-radius: 2rem;
-    background: rgba(172, 172, 172, 0.204);
+    background: rgba(222, 221, 221, 0.227);
     backdrop-filter: blur(5px);
     border: 2px solid white;
 }
@@ -131,6 +140,11 @@ h3 {
     font-weight: bold;
 }
 
+p {
+    font-size: 2.5rem;
+    font-weight: 600;
+}
+
 .graph {
     display: flex;
     align-items: center;
@@ -140,38 +154,29 @@ h3 {
     height: auto;
 }
 
-.g_container1 {
-    margin: 2rem;
-    width: 80vw;
-    height: 60vh;
-    background: rgb(204, 212, 11);
-    background: linear-gradient(90deg, rgba(204, 212, 11, 1) 12%, rgba(55, 212, 200, 1) 71%);
-    border: 2px solid white;
-    border-radius: 2rem;
-    background: rgba(255, 255, 255, 0.105);
-    backdrop-filter: blur(5px);
-}
-.g_container2 {
-    margin: 2rem;
-    width: 80vw;
-    height: 60vh;
-    background: rgb(204, 212, 11);
-    background: linear-gradient(90deg, rgba(204, 212, 11, 1) 12%, rgba(55, 212, 200, 1) 71%);
-    border: 2px solid white;
-    border-radius: 2rem;
-    background: rgba(255, 255, 255, 0.105);
-    backdrop-filter: blur(5px);
-}
+.g_container1,
+.g_container2,
 .g_container3 {
-    margin: 2rem;
     width: 80vw;
     height: 60vh;
-    background: rgb(204, 212, 11);
-    background: linear-gradient(90deg, rgba(204, 212, 11, 1) 12%, rgba(55, 212, 200, 1) 71%);
-    border: 2px solid white;
-    border-radius: 2rem;
-    background: rgba(255, 255, 255, 0.105);
-    backdrop-filter: blur(5px);
+    margin: 2rem auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 1.5rem;
+    border: 3px solid white;
+    background: rgba(104, 171, 215, 0.25);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    /* Adds depth */
+    transition: transform 0.3s ease-in-out;
+    color: white;
+}
+
+.g_container1:hover,
+.g_container2:hover,
+.g_container3:hover {
+    transform: scale(1.03);
 }
 
 footer {
@@ -179,6 +184,74 @@ footer {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #1a5fb4;
+    background-color: rgba(3, 39, 84, 0.636);
+    backdrop-filter: blur(5px);
     height: 10vh;
+}
+
+.instruction {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sub_instruction {
+    width: 60vw;
+    height: 72vh;
+    border: 2px solid white;
+    border-radius: 2rem;
+    background-color: rgba(104, 171, 215, 0.25);
+    backdrop-filter: blur(5px);
+    margin-top: 7rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+}
+
+h3 {
+    color: white;
+}
+
+.box1 {
+    height: 7rem;
+    width: 7rem;
+    margin-bottom: 1rem;
+    border: 2px solid rgb(249, 246, 246);
+    border-radius: 2rem;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+
+.left {
+    width: 70%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.right {
+    width: 30%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+
+}
+#foot{font-size: 1.3rem;
+color: white;}
+#temp-instruction {
+    font-size: 2rem;
+}
+
+#humidity-instruction {
+    font-size: 2rem;
+}
+
+#heat-instruction {
+    font-size: 2rem;
 }
