@@ -321,7 +321,7 @@ h2 {
     }
 
     nav ul {
-        gap: .1rem;
+        gap: .3rem;
     }
 
     nav li a {
@@ -344,6 +344,7 @@ h2 {
         height: 6rem;
         width: 5rem;
         margin: .5rem;
+        border-radius: .2rem;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -391,7 +392,7 @@ h2 {
 
     .box1 {
         width: 2rem;
-        height: 2rem;
+        height: 2.5rem;
         border-radius: .3rem;
         margin-bottom: .3rem;
     }
@@ -416,6 +417,6 @@ h2 {
         font-size: .8rem;
     }
     .sub_about{width: 60vw;height: 30vh; margin-bottom: 2rem;padding: .7rem;}
-    #ab{font-size: .6rem;}
+    #ab{font-size: .7rem;}
     h2{font-size: .9rem; padding: .8rem;}
 }
