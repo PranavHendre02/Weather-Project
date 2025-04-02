@@ -211,7 +211,8 @@ footer {
     transition: transform 0.3s ease-in-out;
     color: white;
 }
-.sub_instruction:hover{
+
+.sub_instruction:hover {
     transform: scale(1.03);
 }
 
@@ -240,7 +241,7 @@ h3 {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    text-align: left;  
+    text-align: left;
 }
 
 .right {
@@ -251,8 +252,12 @@ h3 {
     flex-direction: column;
 
 }
-#foot{font-size: 1.3rem;
-color: white;}
+
+#foot {
+    font-size: 1.3rem;
+    color: white;
+}
+
 #temp-instruction {
     font-size: 1.4rem;
 }
@@ -263,4 +268,65 @@ color: white;}
 
 #heat-instruction {
     font-size: 1.4rem;
+}
+
+@media (max-width:650px) {
+    nav {
+        height: 12vh;
+        padding: .8rem;
+    }
+
+    nav ul {
+        gap: .4rem;
+    }
+
+    nav li a {
+        padding: .6rem .6rem;
+        font-size: 1rem;
+    }
+
+    img {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    .sub_container {
+        width: 95vw;
+        height: 18vh;
+        margin: 4rem;
+    }
+
+    .box {
+        height: 9rem;
+        width: 9.5rem;
+        margin: .5rem;
+    }
+
+    h3 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 2rem;
+        font-weight: 400;
+    }
+    .g_container1,
+    .g_container2,
+    .g_container3{
+        height: 28vh;
+        width: 95vw;
+    }
+    canvas{
+        width: 592px;
+        height: 900px;
+    }
+    .sub_instruction{
+        height: 40vh;
+        width: 70vw;
+        margin-top: 12rem;
+    }
+    .box1{
+        width: 6.5rem;
+        height: 6.5rem;
+    }
 }
