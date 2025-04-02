@@ -21,7 +21,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="#data">Data</a></li>
                 <li><a href="#graph_section">Graphs</a></li>
-                <li><a href="#home">About</a></li>
+                <li><a href="#about">About</a></li>
             </ul>
         </nav>
     </header>
@@ -29,32 +29,32 @@
         <section>
             <div class="instruction">
                 <div class="sub_instruction">
-                 <div class="left">
-                     
-                         <p>Instruction</p>
-                         <p id="temp-instruction">📌 Waiting for temperature data...</p>
-                         <p id="humidity-instruction">📌 Waiting for humidity data...</p>
-                         <p id="heat-instruction">📌 Waiting for heat index data...</p>
-                    
-                 </div>
-                 <div class="right">
-                     <h3 id="rh">Temperature🌡</h3>
-                     <div class="temp  box1">
-                         <p id="itemp"></p>
-                     </div>
-                     <h3 id="rh">Humidity💧</h3>
-                     <div class="humi box1">
-                         <p id="humi"></p>
-                     </div>
-                     <h3 id="rh">Heat Index🔥</h3>
-                     <div class="heat box1">
-                         <p id="heat"></p>
-                     </div>
-                 </div>
-                </div>
-             </div>
+                    <div class="left">
 
-             <div class="graph" id="graph_section">
+                        <p>Instruction</p>
+                        <p id="temp-instruction">📌 Waiting for temperature data...</p>
+                        <p id="humidity-instruction">📌 Waiting for humidity data...</p>
+                        <p id="heat-instruction">📌 Waiting for heat index data...</p>
+
+                    </div>
+                    <div class="right">
+                        <h3 id="rh">Temperature🌡</h3>
+                        <div class="temp  box1">
+                            <p id="itemp"></p>
+                        </div>
+                        <h3 id="rh">Humidity💧</h3>
+                        <div class="humi box1">
+                            <p id="humi"></p>
+                        </div>
+                        <h3>Heat Index🔥</h3>
+                        <div class="heat box1">
+                            <p id="heat"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="graph" id="graph_section">
                 <div class="g_container1">
                     <div>
                         <canvas id="myChart1" width="1000%" height="380%"></canvas>
@@ -86,10 +86,10 @@
                             <div class="flip-card-front">
                                 <h3>Location</h3>
                                 <img width="48" height="48" src="https://img.icons8.com/color/48/marker--v1.png"
-                                    alt="marker--v1" class="icon"/>
+                                    alt="marker--v1" class="icon" />
                             </div>
                             <div class="flip-card-back">
-                                <p id="location-value" >Pune, India</p>
+                                <p id="location-value">Pune, India</p>
                             </div>
                         </div>
                     </div>
@@ -99,10 +99,10 @@
                             <div class="flip-card-front">
                                 <h3>Longitude</h3>
                                 <img width="50" height="50" src="https://img.icons8.com/ios/50/geography--v1.png"
-                                    alt="geography--v1" class="icon"/>
+                                    alt="geography--v1" class="icon" />
                             </div>
                             <div class="flip-card-back">
-                                <p id="longitude-value" >18.5204° N, 73.8567° E°</p>
+                                <p id="longitude-value">18.5204° N, 73.8567° E°</p>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                             <div class="flip-card-front">
                                 <h3>Temperature</h3>
                                 <img width="48" height="48" src="https://img.icons8.com/color-glass/48/temperature.png"
-                                    alt="temperature"class="icon" />
+                                    alt="temperature" class="icon" />
                             </div>
                             <div class="flip-card-back">
                                 <p id="temp-value">--°C</p>
@@ -124,8 +124,8 @@
                         <div class="flip-card-inner">
                             <div class="flip-card-front">
                                 <h3>Humidity</h3>
-                                <img width="40" height="40" src="https://img.icons8.com/office/40/blur.png"
-                                    alt="blur" class="icon"/>
+                                <img width="40" height="40" src="https://img.icons8.com/office/40/blur.png" alt="blur"
+                                    class="icon" />
                             </div>
                             <div class="flip-card-back">
                                 <p id="humidity-value">--%</p>
@@ -148,6 +148,16 @@
                 </div>
 
 
+            </div>
+            <div class="about" id="about">
+                <div class="sub_about">
+                    <h2>About This Project</h2>
+                    <p id="ab">
+                        The Weather Monitoring System is an interactive web application that provides real-time
+                        temperature, humidity, and heat index data using sensor inputs. Built with HTML, CSS,
+                        JavaScript, and Chart.js, the system visualizes environmental changes dynamically through
+                        responsive graphs and intuitive UI elements.</p>
+                </div>
             </div>
         </section>
         <footer>
