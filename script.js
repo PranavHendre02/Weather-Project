@@ -25,13 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     ticks: {
                         color: "white", // X-axis label color
                         font: {
-                            size: 16,
+                            size: 10,
                             weight: "bold"
                         }
                     }
@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     min: 30,
                     max: 40,
                     ticks: {
-                        stepSize: 2,
+                        stepSize: 1,
                         color: "white", // Y-axis label color
                         font: {
                             size: 16,
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     labels: {
                         color: "white", // Legend label color
                         font: {
-                            size: 14,
+                            size: 18,
                             weight: "bold"
                         }
                     }
@@ -80,21 +80,21 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     ticks: {
                         color: "white", // X-axis label color
                         font: {
-                            size: 16,
+                            size: 10,
                             weight: "bold"
                         }
                     }
                 },
                 y: {
                     beginAtZero: false,
-                    min: 20,
-                    max: 60,
+                    min: 10,
+                    max: 50,
                     ticks: {
                         stepSize: 2,
                         color: "white", // Y-axis label color
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     labels: {
                         color: "white", // Legend label color
                         font: {
-                            size: 14,
+                            size: 18,
                             weight: "bold"
                         }
                     }
@@ -136,21 +136,21 @@ document.addEventListener("DOMContentLoaded", () => {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: true,
+            maintainAspectRatio: false,
             scales: {
                 x: {
                     ticks: {
                         color: "white", // X-axis label color
                         font: {
-                            size: 16,
+                            size: 10,
                             weight: "bold"
                         }
                     }
                 },
                 y: {
                     beginAtZero: false,
-                    min: 20,
-                    max: 60,
+                    min: 10,
+                    max: 50,
                     ticks: {
                         stepSize: 2,
                         color: "white", // Y-axis label color
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     labels: {
                         color: 'white', // Legend text color
                         font: {
-                            size: 14,
+                            size: 18,
                             weight: 'bold'
                         }
                     }
