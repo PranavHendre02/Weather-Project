@@ -3,6 +3,9 @@
 ## 📌 About the Project
 
 This project is a real-time **Weather Monitoring System** that integrates an **Arduino Uno** with a **DHT11 temperature & humidity sensor** to collect weather data. The data is processed through **Node.js** and displayed on a responsive **frontend dashboard** using **Chart.js** for real-time graphs. The system can also **remotely sense values and send them to a host**, making it useful for IoT and home automation applications.
+## 🔗 Live Demo
+
+🌍 [Live Weather Dashboard](https://pranavhendre02.github.io/Weather-Project/) 
 
 ## 🚀 Features
 
@@ -48,10 +51,6 @@ This project is a real-time **Weather Monitoring System** that integrates an **A
 ## 📸 Simulation Image
 
 ![Arduino Simulation](./Arduino_Simulator.png)
-
-## 🔗 Live Demo
-
-🌍 [Live Weather Dashboard](#) https://pranavhendre02.github.io/Weather-Project/
 
 ## 📥 Installation & Setup
 
