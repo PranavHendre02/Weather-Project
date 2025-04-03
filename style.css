@@ -333,17 +333,17 @@ h2 {
         width: 2rem;
         height: 2rem;
     }
-
+    
     .sub_container {
-        width: 95vw;
+        width: 97vw;
         height: 18vh;
         margin: 2rem;
     }
 
     .box {
-        height: 6rem;
-        width: 5rem;
-        margin: .5rem;
+        height: 4rem;
+        width: 7rem;
+        margin: .1rem;
         border-radius: .2rem;
         display: flex;
         align-items: center;
@@ -375,19 +375,19 @@ h2 {
     .g_container1,
     .g_container2,
     .g_container3 {
-        height: 50vh;
+        height: 60vh;
         width: 95vw;
     }
 
     canvas {
-        width: 240px;
-        height: 260px;
+        width: 230px;
+        height: 250px;
     }
 
     .sub_instruction {
-        height: 25vh;
-        width: 85vw;
-        margin-top: 7rem;
+        height: 40vh;
+        width: 88vw;
+        margin-top: 6rem;
     }
 
     .box1 {
@@ -416,7 +416,7 @@ h2 {
     #foot {
         font-size: .8rem;
     }
-    .sub_about{width: 60vw;height: 30vh; margin-bottom: 2rem;padding: .7rem;}
+    .sub_about{width: 67vw;height: 40vh; margin-bottom: 2rem;padding: .7rem;}
     #ab{font-size: .7rem;}
     h2{font-size: .9rem; padding: .8rem;}
 }

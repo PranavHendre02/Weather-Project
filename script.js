@@ -2,9 +2,9 @@ document.addEventListener("DOMContentLoaded", () => {
     let temp = document.querySelector("#temp-value");
     let hum = document.querySelector("#humidity-value");
     let heat = document.querySelector("#heat-index-value");
-    let itemp=document.querySelector("#itemp");
-    let ihumi=document.querySelector("#humi");
-    let iheat=document.querySelector("#heat");
+    let itemp = document.querySelector("#itemp");
+    let ihumi = document.querySelector("#humi");
+    let iheat = document.querySelector("#heat");
     let tempMsg = "✅ Temperature is normal.";
     let humidityMsg = "✅ Humidity is normal.";
     let heatMsg = "✅ Heat index is normal.";
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         stepSize: 1,
                         color: "white", // Y-axis label color
                         font: {
-                            size: 16,
+                            size: 14,
                             weight: "bold"
                         }
                     }
@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     labels: {
                         color: "white", // Legend label color
                         font: {
-                            size: 18,
+                            size: 15,
                             weight: "bold"
                         }
                     }
@@ -99,7 +99,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         stepSize: 2,
                         color: "white", // Y-axis label color
                         font: {
-                            size: 16,
+                            size: 14,
                             weight: "bold"
                         }
                     }
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     labels: {
                         color: "white", // Legend label color
                         font: {
-                            size: 18,
+                            size: 15,
                             weight: "bold"
                         }
                     }
@@ -155,7 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         stepSize: 2,
                         color: "white", // Y-axis label color
                         font: {
-                            size: 16,
+                            size: 14,
                             weight: "bold"
                         }
                     }
@@ -166,7 +166,7 @@ document.addEventListener("DOMContentLoaded", () => {
                     labels: {
                         color: 'white', // Legend text color
                         font: {
-                            size: 18,
+                            size: 15,
                             weight: 'bold'
                         }
                     }
@@ -194,41 +194,44 @@ document.addEventListener("DOMContentLoaded", () => {
             temp.innerHTML = data.temperature + "°C";
             hum.innerHTML = data.humidity + "%";
             heat.innerHTML = data.heatIndex;
-        
+
             // Temperature Conditions
             if (data.temperature >= 32) {
-                tempMsg = "⚠️ High Temperature! Turning on fan simulation.";
+                tempMsg = "⚠️ High Temperature! Turning on fan.";
             } else if (data.temperature <= 31) {
-                tempMsg = "❄️ Low Temperature! Turning on heater simulation.";
+                tempMsg = "❄️ Low Temperature! Turning on heater.";
             }
-        
+
             // Humidity Conditions
             if (data.humidity >= 60) {
-                humidityMsg = "⚠️ High Humidity! Activating fan simulation.";
+                humidityMsg = "⚠️ High Humidity!";
             } else if (data.humidity <= 30) {
-                humidityMsg = "💧 Low Humidity! Activating fan simulation.";
+                humidityMsg = "💧 Low Humidity!";
             }
-        
+
             // Heat Index Conditions
             if (data.heatIndex >= 38) {
-                heatMsg = "🔥 Extreme Heat! Cooling system activated.";
+                heatMsg = "🔥 Extreme Heat! activate Cooling system.";
+            } elseif(data.heatIndex <= 30 )
+            {
+                heatMsg = " Low Heat! activate Cooling system❄️.";
             }
-        
+
             // Updating the HTML elements
             document.getElementById("temp-instruction").innerText = tempMsg;
             document.getElementById("humidity-instruction").innerText = humidityMsg;
             document.getElementById("heat-instruction").innerText = heatMsg;
-        
+
             // Updating Live Sensor Values
             itemp.textContent = data.temperature;
             ihumi.textContent = data.humidity;
-           iheat.textContent = data.heatIndex;
-        
+            iheat.textContent = data.heatIndex;
+
 
             updateChart(tempChart, time, data.temperature);
             updateChart(humChart, time, data.humidity);
             updateChart(heatChart, time, data.heatIndex);
-            
+
 
         } catch (error) {
             console.error("Error fetching data:", error);
@@ -251,9 +254,9 @@ document.addEventListener("DOMContentLoaded", () => {
     fetchWeatherData(); // Initial API call
     setInterval(fetchWeatherData, 3000);
 
-      
-    
-  
-    
+
+
+
+
 }
 )
