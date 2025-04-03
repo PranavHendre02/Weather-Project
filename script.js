@@ -212,9 +212,9 @@ document.addEventListener("DOMContentLoaded", () => {
             // Heat Index Conditions
             if (data.heatIndex >= 38) {
                 heatMsg = "🔥 Extreme Heat! activate Cooling system.";
-            } elseif(data.heatIndex <= 30 )
+            } else if(data.heatIndex <= 30 )
             {
-                heatMsg = " Low Heat! activate Cooling system❄️.";
+                heatMsg = " Low Heat! activate Cooling system.";
             }
 
             // Updating the HTML elements
