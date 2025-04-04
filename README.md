@@ -1,5 +1,9 @@
 # 🌦️ Weather Monitoring System 
 
+## 🔗 Live Demo
+
+🌍 [Live Weather Dashboard](https://pranavhendre02.github.io/Weather-Project/)
+
 ## 📌 About the Project
 
 This project is a real-time **Weather Monitoring System** that integrates an **Arduino Uno** with a **DHT11 temperature & humidity sensor** to collect weather data. The data is processed through **Node.js** and displayed on a responsive **frontend dashboard**. The system is built for real-time weather tracking, making it useful for IoT and home automation applications.
@@ -23,6 +27,8 @@ This project is a real-time **Weather Monitoring System** that integrates an **A
   - Node.js (**Express, SerialPort, WebSockets**)
   - Frontend (**HTML, CSS, JavaScript, Chart.js**)
   - **Render** for server hosting
+  - **Icons:** [Icons8](https://icons8.com/icons/color), [FontAwesome](https://fontawesome.com/search)
+  - **Chart.js:** [Chart.js Official Website](https://www.chartjs.org/)
 
 ## 🔧 How It Works
 
@@ -32,6 +38,7 @@ This project is a real-time **Weather Monitoring System** that integrates an **A
 4. The **frontend dashboard** fetches data from the API and displays it.
 5. WebSockets ensure **real-time updates** without page refresh.
 6. **Render server** hosts the Node.js backend, making it accessible globally.
+7. **Remote Sensing:** Data can be collected from remote locations and sent to the server host.
 
 ## 🏗️ Setting up Render Deployment
 
@@ -54,15 +61,11 @@ This project is a real-time **Weather Monitoring System** that integrates an **A
 - ⚡ **Efficient Serial Communication:** Ensures smooth data transfer from Arduino to the server.
 - 📈 **Chart.js Integration:** Displays real-time weather data visually.
 
-## 🔗 Live Demo
-
-🌍 [Live Weather Dashboard](#) *(Replace with your actual live demo link)*
-
 ## 📥 Installation & Setup
 
 1. **Clone the repository**
    ```sh
-   git clone https://github.com/yourusername/weather-monitoring.git
+   git clone https://github.com/PranavHendre02/Weather-Project.git
    ```
 2. **Navigate to the project folder**
    ```sh
@@ -76,6 +79,10 @@ This project is a real-time **Weather Monitoring System** that integrates an **A
    ```sh
    node localapp.js
    ```
+
+## 📜 Simulation
+
+![Arduino Simulation](https://raw.githubusercontent.com/PranavHendre02/Weather-Project/main/Arduino_Simulator.png)
 
 ## 🌟 Contributions
 
