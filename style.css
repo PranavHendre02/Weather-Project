@@ -88,7 +88,7 @@ h3 {
 }
 
 .sub_container:hover {
-    transform: scale(1.02);
+    transform: scale(1.1);
 }
 
 #location-value {
@@ -184,7 +184,7 @@ p {
 .g_container1:hover,
 .g_container2:hover,
 .g_container3:hover {
-    transform: scale(1.03);
+    transform: scale(1.1);
 }
 
 footer {
