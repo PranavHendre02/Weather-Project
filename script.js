@@ -212,8 +212,7 @@ document.addEventListener("DOMContentLoaded", () => {
             // Heat Index Conditions
             if (data.heatIndex >= 38) {
                 heatMsg = "🔥 Extreme Heat! activate Cooling system.";
-            } else if(data.heatIndex <= 30 )
-            {
+            } else if (data.heatIndex <= 30) {
                 heatMsg = " Low Heat! activate Cooling system.";
             }
 
@@ -223,9 +222,9 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("heat-instruction").innerText = heatMsg;
 
             // Updating Live Sensor Values
-            itemp.textContent = data.temperature;
-            ihumi.textContent = data.humidity;
-            iheat.textContent = data.heatIndex;
+            itemp.textContent = data.temperature.style.Color = "red";
+            ihumi.textContent = data.humidity.style.Color = "red";
+            iheat.textContent = data.heatIndex.style.Color = "red";
 
 
             updateChart(tempChart, time, data.temperature);
