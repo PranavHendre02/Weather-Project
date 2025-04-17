@@ -198,22 +198,28 @@ document.addEventListener("DOMContentLoaded", () => {
             // Temperature Conditions
             if (data.temperature >= 32) {
                 tempMsg = "⚠️ High Temperature! Turning on fan.";
+                itemp.style.color = "red";
             } else if (data.temperature <= 31) {
                 tempMsg = "❄️ Low Temperature! Turning on heater.";
+                itemp.style.color = "blue";
             }
 
             // Humidity Conditions
             if (data.humidity >= 60) {
-                humidityMsg = "⚠️ High Humidity!";
+                humidityMsg = "⚠️ High Humidity! Turning on fan.";
+                ihumi.style.color = "red";
             } else if (data.humidity <= 30) {
                 humidityMsg = "💧 Low Humidity!";
+                ihumi.style.color="blue";
             }
 
             // Heat Index Conditions
             if (data.heatIndex >= 38) {
                 heatMsg = "🔥 Extreme Heat! activate Cooling system.";
+                iheat.style.color = "red";
             } else if (data.heatIndex <= 30) {
                 heatMsg = " Low Heat! activate Cooling system.";
+                iheat.style.color="blue"
             }
 
             // Updating the HTML elements
@@ -222,7 +228,7 @@ document.addEventListener("DOMContentLoaded", () => {
             document.getElementById("heat-instruction").innerText = heatMsg;
 
             // Updating Live Sensor Values
-            itemp.textContent = data.temperature.style.Color = "red";
+            itemp.textContent = data.temperature;
             ihumi.textContent = data.humidity.style.Color = "red";
             iheat.textContent = data.heatIndex.style.Color = "red";
 
