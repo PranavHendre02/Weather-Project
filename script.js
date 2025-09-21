@@ -1,5 +1,6 @@
 // Modern Weather Monitoring System JavaScript
 // Enhanced with GSAP animations, smooth scrolling navigation, and NaN handling
+// Fixed: Chart timing and mobile responsiveness
 
 class WeatherMonitor {
     constructor() {
@@ -20,7 +21,7 @@ class WeatherMonitor {
     async init() {
         this.initializeAnimations();
         this.initializeCharts();
-        this.initializeNavigation(); // ← Smooth scrolling navigation
+        this.initializeNavigation();
         this.initializeScrollEffects();
         this.startDataFetching();
         
@@ -108,7 +109,6 @@ class WeatherMonitor {
         });
     }
 
-    // ← COMPLETE NAVIGATION WITH SMOOTH SCROLLING
     initializeNavigation() {
         const navbar = document.getElementById('navbar');
         const navToggle = document.getElementById('nav-toggle');
@@ -148,20 +148,18 @@ class WeatherMonitor {
             }
         });
 
-        // ← SMOOTH SCROLLING FOR NAVIGATION LINKS
+        // Smooth scrolling for navigation links
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault(); // Stop default anchor behavior
+                e.preventDefault();
                 
                 const targetId = link.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
                 
                 if (targetSection) {
-                    // Calculate position accounting for fixed navbar
                     const navbarHeight = navbar.offsetHeight;
                     const targetPosition = targetSection.offsetTop - navbarHeight - 20;
                     
-                    // Smooth scroll using GSAP (since you have it loaded)
                     gsap.to(window, {
                         duration: 0.8,
                         scrollTo: {
@@ -170,7 +168,6 @@ class WeatherMonitor {
                         },
                         ease: "power2.inOut",
                         onComplete: () => {
-                            // Update URL hash after scroll
                             if (history.pushState) {
                                 history.pushState(null, null, targetId);
                             }
@@ -191,7 +188,7 @@ class WeatherMonitor {
             });
         });
 
-        // ← ACTIVE LINK ON SCROLL (optional bonus)
+        // Active link on scroll
         let currentSection = 'hero';
         window.addEventListener('scroll', () => {
             const sections = ['hero', 'dashboard', 'analytics', 'how-it-works', 'about'];
@@ -323,7 +320,7 @@ class WeatherMonitor {
                             usePointStyle: true,
                             padding: 20,
                             font: {
-                                size: 14,
+                                size: window.innerWidth < 768 ? 10 : 14, // Smaller font on mobile
                                 weight: '500'
                             }
                         }
@@ -337,11 +334,11 @@ class WeatherMonitor {
                         cornerRadius: 8,
                         displayColors: false,
                         titleFont: {
-                            size: 14,
+                            size: window.innerWidth < 768 ? 12 : 14, // Smaller font on mobile
                             weight: '600'
                         },
                         bodyFont: {
-                            size: 13
+                            size: window.innerWidth < 768 ? 11 : 13 // Smaller font on mobile
                         }
                     }
                 },
@@ -352,9 +349,18 @@ class WeatherMonitor {
                             display: false
                         },
                         ticks: {
-                            maxTicksLimit: 10,
+                            maxTicksLimit: window.innerWidth < 768 ? 5 : 8, // Fewer ticks on mobile
                             font: {
-                                size: 11
+                                size: window.innerWidth < 768 ? 9 : 11 // Smaller font on mobile
+                            },
+                            // FIXED: Format time labels to show seconds interval
+                            callback: function(value, index) {
+                                const label = this.getLabelForValue(value);
+                                // Show every other tick on mobile to avoid crowding
+                                if (window.innerWidth < 768 && index % 2 !== 0) {
+                                    return '';
+                                }
+                                return label;
                             }
                         }
                     },
@@ -366,7 +372,7 @@ class WeatherMonitor {
                         ...config.yAxisConfig,
                         ticks: {
                             font: {
-                                size: 11
+                                size: window.innerWidth < 768 ? 9 : 11 // Smaller font on mobile
                             }
                         }
                     }
@@ -404,7 +410,6 @@ class WeatherMonitor {
         }
     }
 
-    // Validation for NaN/null values
     isValidData(data) {
         return data && 
                (data.temperature === undefined || !isNaN(data.temperature)) &&
@@ -416,7 +421,6 @@ class WeatherMonitor {
         const waitingMsg = 'Waiting for sensor data';
         const waitingAlert = 'Waiting for sensor data...';
         
-        // Update all displays to waiting state
         const elements = {
             'hero-temp': waitingMsg,
             'hero-humidity': waitingMsg,
@@ -449,23 +453,19 @@ class WeatherMonitor {
     }
 
     handleDataUpdate(data) {
-        const timestamp = new Date().toLocaleTimeString('en-US', {
+        // FIXED: Create proper timestamp with seconds precision
+        const now = new Date();
+        const timestamp = now.toLocaleTimeString('en-US', {
             hour12: false,
             hour: '2-digit',
             minute: '2-digit',
             second: '2-digit'
         });
 
-        // Update hero preview
         this.updateHeroPreview(data);
-        
-        // Update dashboard cards
         this.updateDashboardCards(data);
-        
-        // Update alerts
         this.updateAlerts(data);
         
-        // Update charts only if data is valid
         if (this.isValidData(data)) {
             this.updateCharts(data, timestamp);
             this.storeDataHistory(data);
@@ -479,7 +479,6 @@ class WeatherMonitor {
         const heroTemp = document.getElementById('hero-temp');
         const heroHumidity = document.getElementById('hero-humidity');
         
-        // Check for valid data before updating
         if (heroTemp && data.temperature !== undefined && !isNaN(data.temperature)) {
             this.animateValue(heroTemp, data.temperature);
             heroTemp.classList.remove('skeleton');
@@ -492,13 +491,8 @@ class WeatherMonitor {
     }
 
     updateDashboardCards(data) {
-        // Temperature Card
         this.updateCard('temp', data.temperature, '°C', this.getTemperatureStatus(data.temperature));
-        
-        // Humidity Card
         this.updateCard('humidity', data.humidity, '%', this.getHumidityStatus(data.humidity));
-        
-        // Heat Index Card
         this.updateCard('heat', data.heatIndex, '°C', this.getHeatIndexStatus(data.heatIndex));
     }
 
@@ -507,7 +501,6 @@ class WeatherMonitor {
         const statusElement = document.getElementById(`${type}-status`);
         const statusTextElement = document.getElementById(`${type}-status-text`);
         
-        // Only update if valid number
         if (valueElement && value !== undefined && !isNaN(value)) {
             this.animateValue(valueElement, value);
             valueElement.classList.remove('skeleton');
@@ -558,15 +551,12 @@ class WeatherMonitor {
     }
 
     updateAlerts(data) {
-        // Temperature Alert
         const tempAlert = this.getTemperatureAlert(data.temperature);
         this.updateAlert('temp-alert-message', tempAlert);
         
-        // Humidity Alert
         const humidityAlert = this.getHumidityAlert(data.humidity);
         this.updateAlert('humidity-alert-message', humidityAlert);
         
-        // Heat Index Alert
         const heatAlert = this.getHeatIndexAlert(data.heatIndex);
         this.updateAlert('heat-alert-message', heatAlert);
     }
@@ -602,7 +592,7 @@ class WeatherMonitor {
     }
 
     updateCharts(data, timestamp) {
-        const maxDataPoints = 20;
+        const maxDataPoints = window.innerWidth < 768 ? 10 : 20; // Fewer points on mobile
         
         Object.keys(this.charts).forEach(chartType => {
             const chart = this.charts[chartType];
@@ -611,9 +601,8 @@ class WeatherMonitor {
             const dataKey = chartType === 'heatIndex' ? 'heatIndex' : chartType;
             const value = data[dataKey];
             
-            // Only add valid data points
             if (value !== undefined && !isNaN(value)) {
-                // Add new data point
+                // FIXED: Add timestamp with seconds precision every 3 seconds
                 chart.data.labels.push(timestamp);
                 chart.data.datasets[0].data.push(value);
                 
@@ -623,7 +612,7 @@ class WeatherMonitor {
                     chart.data.datasets[0].data.shift();
                 }
                 
-                chart.update('none'); // Update without animation for real-time feel
+                chart.update('none');
             }
         });
     }
@@ -667,16 +656,14 @@ class WeatherMonitor {
     }
 
     startDataFetching() {
-        // Initial fetch
         this.fetchWeatherData();
         
-        // Set up interval - Every 3 seconds
+        // FIXED: Set interval to exactly 3 seconds
         setInterval(() => {
             this.fetchWeatherData();
         }, this.updateInterval);
     }
 
-    // Utility method for performance monitoring
     getPerformanceMetrics() {
         return {
             isOnline: this.isOnline,
@@ -691,17 +678,14 @@ class WeatherMonitor {
 
 // Initialize the weather monitor when DOM is loaded
 document.addEventListener('DOMContentLoaded', () => {
-    // Add loading animation
     gsap.from("body", {
         duration: 0.5,
         opacity: 0,
         ease: "power2.out"
     });
     
-    // Initialize the weather monitoring system
     window.weatherMonitor = new WeatherMonitor();
     
-    // Add performance monitoring (optional)
     if (window.location.search.includes('debug=true')) {
         setInterval(() => {
             console.log('Performance Metrics:', window.weatherMonitor.getPerformanceMetrics());
@@ -709,7 +693,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-// Service Worker registration for offline support (optional)
+// Service Worker registration for offline support
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
         navigator.serviceWorker.register('/sw.js')
@@ -725,15 +709,13 @@ if ('serviceWorker' in navigator) {
 // Handle visibility change for performance optimization
 document.addEventListener('visibilitychange', () => {
     if (document.hidden) {
-        // Reduce update frequency when tab is not visible
         console.log('Tab hidden - reducing update frequency');
     } else {
-        // Resume normal update frequency
         console.log('Tab visible - resuming normal updates');
     }
 });
 
-// Export for module usage (if needed)
+// Export for module usage
 if (typeof module !== 'undefined' && module.exports) {
     module.exports = WeatherMonitor;
 }

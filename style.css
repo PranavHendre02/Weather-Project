@@ -286,6 +286,7 @@ body {
     position: relative;
     overflow: hidden;
     padding-top: 60px; /* Account for fixed navbar */
+    /* flex-direction: row; */
 }
 
 .hero-background {
@@ -969,13 +970,13 @@ body {
 .chart-wrapper {
     height: 250px;
     position: relative;
-    width: 100%;
+    width: 80%;
 }
 
 /* Tablet Analytics */
-@media (min-width: 769px) {
+@media (min-width: 69px) {
     .charts-grid {
-        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: var(--spacing-xl);
         padding: 0 var(--spacing-md);
     }
@@ -992,7 +993,7 @@ body {
     }
     
     .chart-wrapper {
-        height: 300px;
+        height: 500px;
     }
 }
 
