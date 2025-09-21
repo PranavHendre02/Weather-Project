@@ -1,5 +1,5 @@
 // Modern Weather Monitoring System JavaScript
-// Enhanced with GSAP animations and improved performance
+// Enhanced with GSAP animations, smooth scrolling navigation, and NaN handling
 
 class WeatherMonitor {
     constructor() {
@@ -20,7 +20,7 @@ class WeatherMonitor {
     async init() {
         this.initializeAnimations();
         this.initializeCharts();
-        this.initializeNavigation();
+        this.initializeNavigation(); // ← Smooth scrolling navigation
         this.initializeScrollEffects();
         this.startDataFetching();
         
@@ -108,6 +108,7 @@ class WeatherMonitor {
         });
     }
 
+    // ← COMPLETE NAVIGATION WITH SMOOTH SCROLLING
     initializeNavigation() {
         const navbar = document.getElementById('navbar');
         const navToggle = document.getElementById('nav-toggle');
@@ -124,36 +125,92 @@ class WeatherMonitor {
         });
 
         // Mobile menu toggle
-        navToggle.addEventListener('click', () => {
-            navToggle.classList.toggle('active');
-            navMenu.classList.toggle('active');
+        if (navToggle) {
+            navToggle.addEventListener('click', () => {
+                navToggle.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                
+                // Prevent body scroll when mobile menu is open
+                if (navMenu.classList.contains('active')) {
+                    document.body.style.overflow = 'hidden';
+                } else {
+                    document.body.style.overflow = '';
+                }
+            });
+        }
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!navbar.contains(e.target)) {
+                navToggle?.classList.remove('active');
+                navMenu?.classList.remove('active');
+                document.body.style.overflow = '';
+            }
         });
 
-        // Smooth scrolling for navigation links
+        // ← SMOOTH SCROLLING FOR NAVIGATION LINKS
         navLinks.forEach(link => {
             link.addEventListener('click', (e) => {
-                e.preventDefault();
+                e.preventDefault(); // Stop default anchor behavior
+                
                 const targetId = link.getAttribute('href');
                 const targetSection = document.querySelector(targetId);
                 
                 if (targetSection) {
+                    // Calculate position accounting for fixed navbar
+                    const navbarHeight = navbar.offsetHeight;
+                    const targetPosition = targetSection.offsetTop - navbarHeight - 20;
+                    
+                    // Smooth scroll using GSAP (since you have it loaded)
                     gsap.to(window, {
-                        duration: 1,
+                        duration: 0.8,
                         scrollTo: {
-                            y: targetSection,
-                            offsetY: 70
+                            y: targetPosition,
+                            autoKill: true
                         },
-                        ease: "power2.inOut"
+                        ease: "power2.inOut",
+                        onComplete: () => {
+                            // Update URL hash after scroll
+                            if (history.pushState) {
+                                history.pushState(null, null, targetId);
+                            }
+                        }
                     });
                 }
                 
                 // Close mobile menu
-                navToggle.classList.remove('active');
-                navMenu.classList.remove('active');
+                if (navToggle && navMenu) {
+                    navToggle.classList.remove('active');
+                    navMenu.classList.remove('active');
+                    document.body.style.overflow = '';
+                }
                 
-                // Update active link
+                // Update active link state
                 navLinks.forEach(l => l.classList.remove('active'));
                 link.classList.add('active');
+            });
+        });
+
+        // ← ACTIVE LINK ON SCROLL (optional bonus)
+        let currentSection = 'hero';
+        window.addEventListener('scroll', () => {
+            const sections = ['hero', 'dashboard', 'analytics', 'how-it-works', 'about'];
+            const scrollPosition = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const element = document.getElementById(section);
+                const link = document.querySelector(`[data-section="${section}"]`);
+                
+                if (element && link) {
+                    const elementTop = element.offsetTop;
+                    const elementBottom = elementTop + element.offsetHeight;
+                    
+                    if (scrollPosition >= elementTop && scrollPosition < elementBottom) {
+                        navLinks.forEach(l => l.classList.remove('active'));
+                        link.classList.add('active');
+                        currentSection = section;
+                    }
+                }
             });
         });
     }
@@ -343,7 +400,52 @@ class WeatherMonitor {
         } catch (error) {
             console.error("Error fetching weather data:", error);
             this.updateOnlineStatus(false);
+            this.handleInvalidData();
         }
+    }
+
+    // Validation for NaN/null values
+    isValidData(data) {
+        return data && 
+               (data.temperature === undefined || !isNaN(data.temperature)) &&
+               (data.humidity === undefined || !isNaN(data.humidity)) &&
+               (data.heatIndex === undefined || !isNaN(data.heatIndex));
+    }
+
+    handleInvalidData() {
+        const waitingMsg = 'Waiting for sensor data';
+        const waitingAlert = 'Waiting for sensor data...';
+        
+        // Update all displays to waiting state
+        const elements = {
+            'hero-temp': waitingMsg,
+            'hero-humidity': waitingMsg,
+            'temp-value': waitingMsg,
+            'humidity-value': waitingMsg,
+            'heat-value': waitingMsg,
+            'temp-alert-message': waitingAlert,
+            'humidity-alert-message': waitingAlert,
+            'heat-alert-message': waitingAlert
+        };
+
+        Object.entries(elements).forEach(([id, text]) => {
+            const element = document.getElementById(id);
+            if (element) {
+                element.textContent = text;
+                element.classList.add('skeleton');
+            }
+        });
+
+        this.updateStatusTexts('Connecting...');
+        this.updateOnlineStatus(false);
+    }
+
+    updateStatusTexts(text) {
+        const statusIds = ['temp-status-text', 'humidity-status-text', 'heat-status-text', 'hero-status-text'];
+        statusIds.forEach(id => {
+            const element = document.getElementById(id);
+            if (element) element.textContent = text;
+        });
     }
 
     handleDataUpdate(data) {
@@ -363,25 +465,29 @@ class WeatherMonitor {
         // Update alerts
         this.updateAlerts(data);
         
-        // Update charts
-        this.updateCharts(data, timestamp);
-        
-        // Store data history
-        this.storeDataHistory(data);
+        // Update charts only if data is valid
+        if (this.isValidData(data)) {
+            this.updateCharts(data, timestamp);
+            this.storeDataHistory(data);
+        }
         
         this.lastUpdate = new Date();
+        this.removeSkeletonClasses();
     }
 
     updateHeroPreview(data) {
         const heroTemp = document.getElementById('hero-temp');
         const heroHumidity = document.getElementById('hero-humidity');
         
-        if (heroTemp && data.temperature !== undefined) {
+        // Check for valid data before updating
+        if (heroTemp && data.temperature !== undefined && !isNaN(data.temperature)) {
             this.animateValue(heroTemp, data.temperature);
+            heroTemp.classList.remove('skeleton');
         }
         
-        if (heroHumidity && data.humidity !== undefined) {
+        if (heroHumidity && data.humidity !== undefined && !isNaN(data.humidity)) {
             heroHumidity.textContent = `${data.humidity}%`;
+            heroHumidity.classList.remove('skeleton');
         }
     }
 
@@ -401,8 +507,13 @@ class WeatherMonitor {
         const statusElement = document.getElementById(`${type}-status`);
         const statusTextElement = document.getElementById(`${type}-status-text`);
         
-        if (valueElement && value !== undefined) {
+        // Only update if valid number
+        if (valueElement && value !== undefined && !isNaN(value)) {
             this.animateValue(valueElement, value);
+            valueElement.classList.remove('skeleton');
+        } else if (valueElement) {
+            valueElement.textContent = 'Waiting for sensor data';
+            valueElement.classList.add('skeleton');
         }
         
         if (statusElement && statusTextElement) {
@@ -425,6 +536,7 @@ class WeatherMonitor {
     }
 
     getTemperatureStatus(temp) {
+        if (temp === undefined || isNaN(temp)) return { class: 'normal', text: 'Waiting...' };
         if (temp >= 35) return { class: 'danger', text: 'High' };
         if (temp >= 30) return { class: 'warning', text: 'Warm' };
         if (temp <= 15) return { class: 'warning', text: 'Cold' };
@@ -432,12 +544,14 @@ class WeatherMonitor {
     }
 
     getHumidityStatus(humidity) {
+        if (humidity === undefined || isNaN(humidity)) return { class: 'normal', text: 'Waiting...' };
         if (humidity >= 70) return { class: 'warning', text: 'High' };
         if (humidity <= 30) return { class: 'warning', text: 'Low' };
         return { class: 'normal', text: 'Normal' };
     }
 
     getHeatIndexStatus(heatIndex) {
+        if (heatIndex === undefined || isNaN(heatIndex)) return { class: 'normal', text: 'Waiting...' };
         if (heatIndex >= 40) return { class: 'danger', text: 'Extreme' };
         if (heatIndex >= 35) return { class: 'warning', text: 'High' };
         return { class: 'normal', text: 'Normal' };
@@ -461,10 +575,12 @@ class WeatherMonitor {
         const element = document.getElementById(elementId);
         if (element) {
             element.textContent = message;
+            element.classList.remove('skeleton');
         }
     }
 
     getTemperatureAlert(temp) {
+        if (temp === undefined || isNaN(temp)) return "⏳ Waiting for sensor data...";
         if (temp >= 35) return "🔥 High temperature detected! Cooling system activated.";
         if (temp >= 30) return "⚠️ Temperature rising. Monitor closely.";
         if (temp <= 15) return "❄️ Low temperature detected! Heating recommended.";
@@ -472,12 +588,14 @@ class WeatherMonitor {
     }
 
     getHumidityAlert(humidity) {
+        if (humidity === undefined || isNaN(humidity)) return "⏳ Waiting for sensor data...";
         if (humidity >= 70) return "💧 High humidity levels detected!";
         if (humidity <= 30) return "🏜️ Low humidity levels. Consider humidification.";
         return "✅ Humidity levels are optimal.";
     }
 
     getHeatIndexAlert(heatIndex) {
+        if (heatIndex === undefined || isNaN(heatIndex)) return "⏳ Waiting for sensor data...";
         if (heatIndex >= 40) return "🚨 Extreme heat index! Take immediate precautions.";
         if (heatIndex >= 35) return "⚠️ High heat index. Stay hydrated and cool.";
         return "✅ Heat index is comfortable.";
@@ -493,7 +611,8 @@ class WeatherMonitor {
             const dataKey = chartType === 'heatIndex' ? 'heatIndex' : chartType;
             const value = data[dataKey];
             
-            if (value !== undefined) {
+            // Only add valid data points
+            if (value !== undefined && !isNaN(value)) {
                 // Add new data point
                 chart.data.labels.push(timestamp);
                 chart.data.datasets[0].data.push(value);
@@ -513,7 +632,7 @@ class WeatherMonitor {
         const maxHistory = 100;
         
         ['temperature', 'humidity', 'heatIndex'].forEach(key => {
-            if (data[key] !== undefined) {
+            if (data[key] !== undefined && !isNaN(data[key])) {
                 this.dataHistory[key].push({
                     value: data[key],
                     timestamp: new Date()
@@ -523,6 +642,12 @@ class WeatherMonitor {
                     this.dataHistory[key].shift();
                 }
             }
+        });
+    }
+
+    removeSkeletonClasses() {
+        document.querySelectorAll('.skeleton').forEach(el => {
+            el.classList.remove('skeleton');
         });
     }
 
@@ -545,7 +670,7 @@ class WeatherMonitor {
         // Initial fetch
         this.fetchWeatherData();
         
-        // Set up interval
+        // Set up interval - Every 3 seconds
         setInterval(() => {
             this.fetchWeatherData();
         }, this.updateInterval);

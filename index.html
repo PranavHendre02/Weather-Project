@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <div class="nav-brand">
@@ -24,11 +23,11 @@
                 <span class="brand-text">WeatherFlow</span>
             </div>
             <div class="nav-menu" id="nav-menu">
-                <a href="#hero" class="nav-link">Home</a>
-                <a href="#dashboard" class="nav-link">Dashboard</a>
-                <a href="#analytics" class="nav-link">Analytics</a>
-                <a href="#how-it-works" class="nav-link">How It Works</a>
-                <a href="#about" class="nav-link">About</a>
+                <a href="#hero" class="nav-link active" data-section="hero">Home</a>
+                <a href="#dashboard" class="nav-link" data-section="dashboard">Dashboard</a>
+                <a href="#analytics" class="nav-link" data-section="analytics">Analytics</a>
+                <a href="#how-it-works" class="nav-link" data-section="how-it-works">How It Works</a>
+                <a href="#about" class="nav-link" data-section="about">About</a>
             </div>
             <div class="nav-toggle" id="nav-toggle">
                 <span></span>
@@ -72,17 +71,17 @@
                         </div>
                         <div class="preview-status">
                             <span class="status-dot"></span>
-                            Live Data
+                            <span class="status-text" id="hero-status-text">Connecting...</span>
                         </div>
                     </div>
                     <div class="preview-data">
                         <div class="preview-temp">
-                            <span class="temp-value" id="hero-temp">--</span>
+                            <span class="temp-value" id="hero-temp">Waiting for sensor data</span>
                             <span class="temp-unit">°C</span>
                         </div>
                         <div class="preview-humidity">
                             <i class="fas fa-tint"></i>
-                            <span id="hero-humidity">--%</span>
+                            <span id="hero-humidity">Waiting for sensor data</span>
                         </div>
                     </div>
                 </div>
@@ -110,12 +109,12 @@
                         </div>
                         <div class="card-status">
                             <span class="status-indicator" id="temp-status"></span>
-                            <span class="status-text" id="temp-status-text">Normal</span>
+                            <span class="status-text" id="temp-status-text">Connecting...</span>
                         </div>
                     </div>
                     <div class="card-content">
                         <div class="metric-value">
-                            <span class="value" id="temp-value">--</span>
+                            <span class="value" id="temp-value">Waiting for sensor data</span>
                             <span class="unit">°C</span>
                         </div>
                         <div class="metric-label">Temperature</div>
@@ -133,12 +132,12 @@
                         </div>
                         <div class="card-status">
                             <span class="status-indicator" id="humidity-status"></span>
-                            <span class="status-text" id="humidity-status-text">Normal</span>
+                            <span class="status-text" id="humidity-status-text">Connecting...</span>
                         </div>
                     </div>
                     <div class="card-content">
                         <div class="metric-value">
-                            <span class="value" id="humidity-value">--</span>
+                            <span class="value" id="humidity-value">Waiting for sensor data</span>
                             <span class="unit">%</span>
                         </div>
                         <div class="metric-label">Humidity</div>
@@ -156,12 +155,12 @@
                         </div>
                         <div class="card-status">
                             <span class="status-indicator" id="heat-status"></span>
-                            <span class="status-text" id="heat-status-text">Normal</span>
+                            <span class="status-text" id="heat-status-text">Connecting...</span>
                         </div>
                     </div>
                     <div class="card-content">
                         <div class="metric-value">
-                            <span class="value" id="heat-value">--</span>
+                            <span class="value" id="heat-value">Waiting for sensor data</span>
                             <span class="unit">°C</span>
                         </div>
                         <div class="metric-label">Heat Index</div>
@@ -212,7 +211,7 @@
                         </div>
                         <div class="alert-content">
                             <div class="alert-title">Temperature Monitor</div>
-                            <div class="alert-message" id="temp-alert-message">Monitoring temperature levels...</div>
+                            <div class="alert-message" id="temp-alert-message">Waiting for sensor data...</div>
                         </div>
                         <div class="alert-time">Now</div>
                     </div>
@@ -222,7 +221,7 @@
                         </div>
                         <div class="alert-content">
                             <div class="alert-title">Humidity Monitor</div>
-                            <div class="alert-message" id="humidity-alert-message">Monitoring humidity levels...</div>
+                            <div class="alert-message" id="humidity-alert-message">Waiting for sensor data...</div>
                         </div>
                         <div class="alert-time">Now</div>
                     </div>
@@ -232,7 +231,7 @@
                         </div>
                         <div class="alert-content">
                             <div class="alert-title">Heat Index Monitor</div>
-                            <div class="alert-message" id="heat-alert-message">Monitoring heat index levels...</div>
+                            <div class="alert-message" id="heat-alert-message">Waiting for sensor data...</div>
                         </div>
                         <div class="alert-time">Now</div>
                     </div>
@@ -310,7 +309,8 @@
                     </div>
                     <div class="step-content">
                         <h3>Sensor Collection</h3>
-                        <p>DHT11 sensor connected to Arduino Uno captures temperature and humidity data every 2 seconds</p>
+                        <p>DHT11 sensor connected to Arduino Uno captures temperature and humidity data every 2 seconds
+                        </p>
                     </div>
                     <div class="step-connector"></div>
                 </div>
@@ -354,7 +354,8 @@
                     </div>
                     <div class="step-content">
                         <h3>Real-time Display</h3>
-                        <p>Frontend dashboard fetches data every 3 seconds via REST API and updates charts and metrics</p>
+                        <p>Frontend dashboard fetches data every 3 seconds via REST API and updates charts and metrics
+                        </p>
                     </div>
                 </div>
             </div>
@@ -406,8 +407,8 @@
                 <div class="about-text" data-aos="fade-right">
                     <h2>About WeatherFlow</h2>
                     <p class="about-description">
-                        WeatherFlow is an advanced IoT weather monitoring system that bridges the gap between 
-                        hardware sensors and modern web interfaces. Built with precision and performance in mind, 
+                        WeatherFlow is an advanced IoT weather monitoring system that bridges the gap between
+                        hardware sensors and modern web interfaces. Built with precision and performance in mind,
                         our system provides real-time environmental data with professional-grade accuracy.
                     </p>
                     <div class="about-features">
@@ -479,14 +480,13 @@
                     <a href="#about">About</a>
                 </div>
                 <div class="footer-social">
-                    <a href="#" class="social-link">
+                    <a href="https://github.com/PranavHendre02/Weather-Project" class="social-link" target="_blank"
+                        rel="noopener noreferrer">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="#" class="social-link">
+                    <a href="https://www.linkedin.com/in/pranav-hendre-b07339316" class="social-link" target="_blank"
+                        rel="noopener noreferrer">
                         <i class="fab fa-linkedin"></i>
-                    </a>
-                    <a href="#" class="social-link">
-                        <i class="fab fa-twitter"></i>
                     </a>
                 </div>
             </div>
@@ -497,9 +497,11 @@
     </footer>
 
     <!-- Scripts -->
+    
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollToPlugin.min.js"></script>
     <script src="script.js"></script>
 </body>
 
